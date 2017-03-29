@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: thumbor
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: thumbor
+    spec:
+      containers:
+      - env:
+        - name: MAX_AGE
+          value: "3600"
+        - name: MAX_AGE_TEMP_IMAGE
+          value: "300"
+        - name: RESULT_STORAGE_EXPIRATION_SECONDS
+          value: "31536000"
+        - name: ALLOW_UNSAFE_URL
+          value: "True"
+        - name: AUTO_WEBP
+          value: "True"
+        image: apsl/thumbor:latest
+        name: thumbor
+        resources: {}
+      restartPolicy: Always
+status: {}

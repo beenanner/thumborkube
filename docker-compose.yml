@@ -1,0 +1,18 @@
+version: '2'
+services:
+  thumbor:
+    image: apsl/thumbor:latest
+    environment:
+      - MAX_AGE=3600
+      - MAX_AGE_TEMP_IMAGE=300
+      - RESULT_STORAGE_EXPIRATION_SECONDS=31536000
+      - ALLOW_UNSAFE_URL=True
+      - AUTO_WEBP=True
+    restart: always
+  nginx:
+    image: apsl/thumbor-nginx:latest
+    links:
+      - thumbor:thumbor
+    ports:
+      - "80:80"
+    restart: always
